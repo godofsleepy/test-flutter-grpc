@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package grpcapi;
+import "google/protobuf/timestamp.proto";
+
+service Grpcapi {
+    rpc Login (LoginRequest) returns (LoginResponse);
+    rpc GetAllOrder (GetAllOrderRequest) returns (GetAllOrderResponse);
+    rpc GetProductOrder (GetProductOrderRequest) returns (GetProductOrderResponse);
+}
+
+message LoginRequest {
+  string username = 1;
+  string password = 2;
+}
+
+message LoginResponse {
+  string username = 1;
+  string message = 2;
+}
+
+message GetAllOrderRequest {
+  
+}
+
+message GetAllOrderResponse {
+    Order order = 1;
+    int32 total_revenue = 2;
+    google.protobuf.Timestamp transaction_date = 3;
+
+    message Order{
+        string order_no = 1;
+        int32 total_items = 2;
+        Detail detail = 3;
+
+        message Detail{
+          int32 product_id = 1;
+          string name = 2;
+          int32 price = 3;
+        }
+    }
+
+}
+
+message GetProductOrderRequest {
+  string order_no = 1;
+}
+
+message GetProductOrderResponse {
+  string order_no = 1;
+  int32 id_product = 2;
+  string name = 3;
+  int32 price = 4;
+  int32 total_order = 5;
+  int32 total_price = 6;
+  int32 total = 7;
+}

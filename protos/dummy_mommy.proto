@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package grpcapi;
+
+service GateawayService {
+  rpc serviceNo (LoginRequest) returns (LoginReply);
+}
+
+service DummyMommyService {
+    rpc login (LoginRequest) returns (LoginReply);
+    rpc getDummyData (GetDummyDataRequest) returns (GetDummyDataReply);
+    rpc checkStatus (CheckStatusRequest) returns (CheckStatusReply);
+}
+
+// The request message containing the user's login.
+message LoginRequest {
+  string username = 1;
+  string password = 2;
+}
+
+// The response message containing the login.
+message LoginReply {
+  string message = 1;
+}
+
+// The request message containing the read dummy data.
+message GetDummyDataRequest {
+  int32 id = 1;
+}
+
+// The response message containing the read dummy data.
+message GetDummyDataReply {
+  repeated Item items = 1;
+}
+
+message Item {
+    int32 id = 1;
+    string name = 2;
+    float price = 3;
+    bool status = 4;
+}
+
+// The request message containing the user's login.
+message CheckStatusRequest {
+  int32 code = 1;
+  bool status = 2;
+}
+
+// The response message containing the login.
+message CheckStatusReply {
+  string message = 1;
+}
